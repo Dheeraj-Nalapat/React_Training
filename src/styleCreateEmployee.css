@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+}
+
+aside {
+  position: fixed;
+  width: 300px;
+  align-items: center;
+  box-shadow: rgba(58, 84, 110, 0.2) 3px 3px 3px;
+  height: 100vh;
+}
+
+.keyValue-logo {
+  margin-top: 20px;
+}
+
+.keyValue-logo img {
+  width: 100%;
+  padding: 0 60px;
+}
+
+.anchor {
+  display: flex;
+  margin-top: 60px;
+  background-color: #03aeee;
+  border-radius: 50px 0 0 50px;
+  height: 60px;
+}
+
+.anchor a {
+  display: flex;
+  color: #ffffff;
+  text-decoration: none;
+  align-items: center;
+}
+
+.anchor a img {
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+
+.home-layout {
+  background-color: #fafafa;
+  margin-left: 300px;
+  height: 100vh;
+}
+
+section {
+  background-color: #ffffff;
+  margin-top: 50px;
+  margin-left: 20px;
+  border-radius: 10px;
+}
+
+.title {
+  padding: 10px 20px;
+}
+
+.create-employee-form input,
+select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 5px;
+  margin-top: 10px;
+  border-width: 1px;
+  border: 1px;
+  background-color: #fafafa;
+}
+
+.create-employee-input {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: auto;
+  margin: 20px 20px;
+}
+
+.input-pair {
+  width: 80%;
+  min-width: 300px;
+  margin-left: 15px;
+  margin-right: auto;
+  margin-top: 30px;
+}
+
+.create-employee-button {
+  margin-left: 35px;
+  margin-bottom: 30px;
+  padding-top: 15px;
+  padding-bottom: 30px;
+}
+
+.create-employee-button button {
+  margin-right: 20px;
+  height: 35px;
+  width: 135px;
+  border-radius: 5px;
+  border: 1px solid #969191;
+  font-size: 12px;
+}
+
+#create {
+  background-color: #03aeee;
+  color: #ffffff;
+}
+
+#cancel {
+  color: #7c7676;
+  background-color: #ffffff;
+}
+
+@media (max-width: 1400px) {
+  .create-employee-input {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 990px) {
+  .create-employee-input {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  aside {
+    display: none;
+  }
+  main {
+    margin-left: 0px;
+  }
+}
