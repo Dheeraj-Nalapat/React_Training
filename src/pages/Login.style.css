@@ -53,8 +53,10 @@
 
 .login-textfield .eye {
   position: absolute;
-  margin: 17px;
+  margin: 13px;
   right: 0px;
+  background-color: #ffffff;
+  border: none;
 }
 
 .login-textfield input:focus + label {
@@ -90,7 +92,7 @@
   padding-left: 5px;
 }
 
-.login-layout button {
+.login-layout-button {
   padding: 15px 12px;
   width: 100%;
   text-align: center;

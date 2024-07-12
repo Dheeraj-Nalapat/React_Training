@@ -1,39 +1,61 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import TextField from "./components/TextField";
-import "./style.css";
-import KvLogo from "./assets/kv logo.png";
-import Logo from "./assets/kv-login.jpeg";
-import Button from "./components/Button";
-import Count from "./components/Count";
+import TextField from "../components/TextField";
+import "./Login.style.css";
+import KvLogo from "../assets/kv logo.png";
+import Logo from "../assets/kv-login.jpeg";
+import Button from "../components/Button";
+import Count from "../components/Count";
+import { useNavigate } from "react-router-dom";
 
-const Login = ({ handleSubmit }) => {
-  const [userName, setUserName] = useState("");
+const Login = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    if (loginCredential.username && loginCredential.password) {
+      localStorage.setItem("token", "true");
+    } else {
+      localStorage.setItem("token", "false");
+    }
+    console.log(e);
+    navigate("/employee");
+  };
+
+  const [loginCredential, setLoginCredential] = useState({
+    username: "",
+    password: "",
+  });
+
   const usernameRef = useRef();
   const [error, setError] = useState("");
-  const [color, setColor] = useState(undefined);
+  const [color, setColor] = useState("");
+
   const onUserNameChange = (text) => {
     if (text.length > 10) {
       setColor("red");
       setError("value has more than 10 charachters");
     } else {
-      setUserName(text);
+      setLoginCredential((prev) => ({
+        ...prev,
+        username: text,
+      }));
       setColor("");
       setError("");
     }
   };
+
+  const onPasswordChange = (text) => {
+    setLoginCredential((prev) => ({
+      ...prev,
+      password: text,
+    }));
+  };
+
   useEffect(() => {
     setTimeout(() => {
       usernameRef.current.focus();
     }, 1500);
   }, []);
-  // useEffect(() => {
-  //   console.log(userName);
-  //   if (userName.length > 10) {
-  //     setColor("red");
-  //   } else {
-  //     setColor(undefined);
-  //   }
-  // }, [userName]);
+
   return (
     <Fragment>
       <main className="login-layout">
@@ -54,7 +76,7 @@ const Login = ({ handleSubmit }) => {
               id="uname"
               onChange={onUserNameChange}
               borderColor={color}
-              text={userName}
+              value={loginCredential.username}
               error={error}
               ref={usernameRef}
             />
@@ -63,8 +85,15 @@ const Login = ({ handleSubmit }) => {
               type="password"
               name="password"
               id="password"
+              onChange={onPasswordChange}
+              value={loginCredential.password}
             />
-            <Button text="Log in" type="submit" handleSubmit={handleSubmit} />
+            <Button
+              className="login-layout-button"
+              text="Log in"
+              type="submit"
+              handleSubmit={handleSubmit}
+            />
             {/* <Count color="blue" /> */}
           </form>
         </div>

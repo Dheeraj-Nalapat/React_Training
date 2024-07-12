@@ -11,7 +11,12 @@ aside {
   width: 300px;
   align-items: center;
   box-shadow: rgba(58, 84, 110, 0.2) 3px 3px 3px;
-  height: 100vh;
+  height: 100%;
+  top: 0;
+}
+
+header {
+  height: 80px;
 }
 
 .keyValue-logo {
@@ -25,7 +30,7 @@ aside {
 
 .anchor {
   display: flex;
-  margin-top: 60px;
+  margin-top: 30px;
   background-color: #03aeee;
   border-radius: 50px 0 0 50px;
   height: 60px;
@@ -53,9 +58,10 @@ aside {
 
 section {
   background-color: #ffffff;
-  margin-top: 50px;
   margin-left: 20px;
   border-radius: 10px;
+  margin-bottom: 30px;
+  padding: 20px;
 }
 
 .title {
@@ -130,7 +136,7 @@ select {
   aside {
     display: none;
   }
-  main {
+  .home-layout {
     margin-left: 0px;
   }
 }

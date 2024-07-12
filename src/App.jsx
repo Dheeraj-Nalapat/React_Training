@@ -1,17 +1,34 @@
-//import "./style.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
+import HomeLayout from "./pages/homeLayout";
+import CreateEmployee from "./pages/CreateEmployee";
+import ListEmployee from "./pages/ListEmployee";
+import UpdateEmployee from "./pages/UpdateEmployee";
 
-import CreateEmployee from "./CreateEmployee";
-import Login from "./Login";
-import { useState } from "react";
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/employee",
+    element: <HomeLayout />,
+    children: [
+      { index: true, element: <ListEmployee /> },
+      { path: "create", element: <CreateEmployee /> },
+      { path: "edit", element: <UpdateEmployee /> },
+    ],
+  },
+]);
 
 const App = () => {
-  const [stateValue, setState] = useState(false);
-
-  const handleLogin = () => {
-    setState(true);
-  };
-
-  return stateValue ? <CreateEmployee /> : <Login handleSubmit={handleLogin} />;
+  return (
+    <div className="App">
+      <RouterProvider router={router} />
+    </div>
+  );
 };
 
 export default App;

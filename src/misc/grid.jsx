@@ -1,5 +1,5 @@
-import InputPair from "./components/InputPair";
-import SelectPair from "./components/SelectPair";
+import InputPair from "../components/InputPair";
+import SelectPair from "../components/SelectPair";
 import "./grid.css";
 
 const fields = [

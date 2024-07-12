@@ -1,6 +1,6 @@
-const Button = ({ text, type, id, handleSubmit }) => {
+const Button = ({ text, type, id, handleSubmit, className }) => {
   return (
-    <button type={type} id={id} onClick={handleSubmit}>
+    <button className={className} type={type} id={id} onClick={handleSubmit}>
       {text}
     </button>
   );
