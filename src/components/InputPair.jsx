@@ -1,11 +1,7 @@
-import { useState, useEffect } from "react";
-
 const InputPair = (props) => {
-  //const [text, setText] = useState("");
   const onChange = (e) => {
-    // setText(e.target.value);
     if (props.onChange) {
-      props.onChange(props.label, e.target.value);
+      props.onChange(props.id, e.target.value);
     }
   };
 
@@ -20,6 +16,7 @@ const InputPair = (props) => {
         placeholder={props.label}
         onChange={onChange}
         value={props.value}
+        disabled={props.id == "employee_Id"}
       />
       <br />
     </div>

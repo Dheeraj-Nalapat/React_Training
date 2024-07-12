@@ -5,6 +5,7 @@ import HomeLayout from "./pages/homeLayout";
 import CreateEmployee from "./pages/CreateEmployee";
 import ListEmployee from "./pages/ListEmployee";
 import UpdateEmployee from "./pages/UpdateEmployee";
+import DetailsEmployee from "./pages/DetailsEmployee";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <ListEmployee /> },
       { path: "create", element: <CreateEmployee /> },
-      { path: "edit", element: <UpdateEmployee /> },
+      { path: "edit/:id", element: <UpdateEmployee /> },
+      { path: "details/:id", element: <DetailsEmployee /> },
     ],
   },
 ]);

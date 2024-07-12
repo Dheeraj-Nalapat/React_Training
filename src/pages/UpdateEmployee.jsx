@@ -1,6 +1,9 @@
+import { useParams } from "react-router-dom";
 import FormElement from "../components/FormElement";
 
 const UpdateEmployee = () => {
+  let { id } = useParams();
+  console.log(id);
   return (
     <main className="home-layout">
       <section>
@@ -13,7 +16,7 @@ const UpdateEmployee = () => {
         </div>
       </section>
       <section>
-        <FormElement />
+        <FormElement operation="edit" employee_Id={id} />
       </section>
     </main>
   );

@@ -1,7 +1,7 @@
 .list-employee-title {
   display: grid;
   padding: 10px 20px;
-  grid-template-columns: 8fr 6fr;
+  grid-template-columns: 10fr 6fr;
 }
 
 .list-employee-text {
@@ -26,9 +26,14 @@
 }
 
 .list-employee-filter .status-filter {
-  background-color: #bce1ee;
+  background-color: #eaf9ff;
   border-radius: 10px;
-  height: 20px;
+  margin-top: 0px;
+  padding-block: 0px;
+  padding-inline: 10px;
+  width: 150px !important;
+  height: 25px;
+  color: #000000;
 }
 
 .add-button-link {
@@ -58,7 +63,7 @@
   justify-content: center;
   align-items: center;
   width: 200px;
-  background-color: #bce1ee;
+  background-color: #eaf9ff;
   border-radius: 0px 20px 20px 0px;
   height: 40px;
 }
@@ -66,49 +71,58 @@
 .employee-details-entries {
   margin-top: 20px;
   margin-left: 20px;
+  margin-right: 20px;
 }
 
 table {
-  /* border-collapse: separate; */
+  border-collapse: separate;
   border-spacing: 0 20px;
   border-radius: 10px;
   width: 100%;
 }
 
-/* thead th {
-  box-shadow: 0px 0px 5px #b5eafd;
-  background-color: #b5eafd;
-} */
-
-thead {
-  border-radius: 50px;
-  background-color: #b5eafd;
-  box-shadow: 0px 0px 5px #b5eafd;
+tr {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
 }
 
-/* thead th:first-child {
-  border-radius: 10px 0px 0px 10px;
+.head-tr {
+  border-radius: 10px;
+  background-color: #eaf9ff;
+  box-shadow: 0px 0px 5px #eaf9ff;
 }
 
-thead th:last-child {
-  border-radius: 0px 10px 10px 0px;
-} */
+.table-row-link {
+  text-decoration: none;
+  color: #000000;
+}
+
+.table-row {
+  border-radius: 10px;
+  background-color: #ffffff;
+}
 
 td,
 th {
   text-align: left;
-  max-width: 50px;
+  max-width: 200px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  padding: 28px;
+  padding: 24px;
 }
+
+/* tbody {
+  border-spacing: 0 20px;
+} */
 
 tbody tr {
   border: 1px solid #dddddd;
   border-radius: 10px;
   box-shadow: 2px 1px 5px rgb(183, 180, 180);
-  background-color: #ffffff;
+  margin-bottom: 18px;
+  align-items: center;
 }
 
 .status-pill {
@@ -120,15 +134,15 @@ tbody tr {
 }
 
 .inactive {
-  background-color: rgb(246, 146, 129);
+  background-color: #ffbfbf;
 }
 
 .probation {
-  background-color: rgb(224, 227, 78);
+  background-color: #eee6b5;
 }
 
 .active {
-  background-color: rgb(78, 227, 177);
+  background-color: #d3f4be;
 }
 
 .status-pill p {

@@ -21,7 +21,7 @@ const CreateEmployee = () => {
         </div>
       </section>
       <section>
-        <FormElement />
+        <FormElement operation="create" />
       </section>
     </main>
   );
