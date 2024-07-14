@@ -3,8 +3,17 @@ import "./ListEmployee.style.css";
 import EmployeeListEntry from "../components/EmployeeListEntry";
 import { MdOutlineDelete, MdModeEditOutline } from "react-icons/md";
 import { userData } from "../dummydata";
+import DeletePopUp from "../components/DeletePopUp";
+import { useState } from "react";
 
 const ListEmployee = () => {
+  const [filter, setFilter] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const handleDelete = (employee) => {
+    setSelectedEmployee(employee);
+    setOpenModal(true);
+  };
   return (
     <main className="home-layout">
       <section>
@@ -70,7 +79,10 @@ const ListEmployee = () => {
                         color="#e76a6ad9"
                         className="delete-icon"
                         style={{ cursor: "pointer" }}
-                        onClick={() => console.log(`Deleted ${id}`)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleDelete({ name, id });
+                        }}
                       />
                       <Link to={`/employee/edit/${id}`}>
                         <MdModeEditOutline
@@ -86,6 +98,14 @@ const ListEmployee = () => {
               )
             )}
           </tbody>
+          {openModal && (
+            <DeletePopUp
+              open={openModal}
+              onCancel={() => setOpenModal(false)}
+              onConfirm={() => setOpenModal(false)}
+              employee={selectedEmployee}
+            />
+          )}
         </table>
       </div>
     </main>

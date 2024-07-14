@@ -42,6 +42,7 @@
   border-radius: 10px;
   box-shadow: rgba(58, 84, 110, 0.2) 3px 3px 3px;
   margin-right: 20px;
+  width: 75%;
 }
 
 .label-data-pair {
@@ -50,5 +51,5 @@
 
 .data-title {
   display: block;
-  padding-bottom: 10px;
+  color: #726f6f;
 }
