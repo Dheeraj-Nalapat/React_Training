@@ -6,7 +6,7 @@ import { useState } from "react";
 import FormElement from "../components/FormElement";
 import { useOutletContext } from "react-router-dom";
 
-const CreateEmployee = () => {
+const CreateEmployee = ({ type, state, dispatch }) => {
   return (
     <main className="home-layout">
       <section>
@@ -21,7 +21,7 @@ const CreateEmployee = () => {
         </div>
       </section>
       <section>
-        <FormElement operation="create" />
+        <FormElement operation={type} state={state} dispatch={dispatch} />
       </section>
     </main>
   );

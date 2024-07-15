@@ -40,13 +40,23 @@
   margin-left: 20px;
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: rgba(58, 84, 110, 0.2) 3px 3px 3px;
+  box-shadow: rgba(173, 178, 183, 0.2) 3px 3px 3px;
   margin-right: 20px;
+  width: 100%;
+  padding: 0px 20px;
+}
+
+.employee-details-wrapper {
   width: 75%;
 }
 
 .label-data-pair {
   padding: 30px;
+}
+
+.label-data-pair-border {
+  padding: 30px;
+  border-bottom: 1px solid #ded7d7;
 }
 
 .data-title {

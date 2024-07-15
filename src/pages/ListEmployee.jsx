@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import "./ListEmployee.style.css";
 import EmployeeListEntry from "../components/EmployeeListEntry";
 import { MdOutlineDelete, MdModeEditOutline } from "react-icons/md";
-import { userData } from "../dummydata";
 import DeletePopUp from "../components/DeletePopUp";
 import { useState } from "react";
+import { actionTypes } from "../store/useReduser";
 
-const ListEmployee = () => {
+const ListEmployee = ({ state, dispatch }) => {
   const [filter, setFilter] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
@@ -59,7 +59,7 @@ const ListEmployee = () => {
           </thead>
 
           <tbody>
-            {userData.map(
+            {state.employees.map(
               ({ name, id, joinDate, role, status, experience }) => (
                 <Link to={`/employee/details/${id}`} className="table-row-link">
                   <tr key={id} className="table-row">
@@ -102,8 +102,14 @@ const ListEmployee = () => {
             <DeletePopUp
               open={openModal}
               onCancel={() => setOpenModal(false)}
-              onConfirm={() => setOpenModal(false)}
-              employee={selectedEmployee}
+              onConfirm={() => {
+                dispatch({
+                  type: actionTypes.DELETE_EMPLOYEE,
+                  payload: selectedEmployee.id,
+                });
+                setSelectedEmployee(null);
+                return setOpenModal(false);
+              }}
             />
           )}
         </table>

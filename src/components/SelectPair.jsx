@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const SelectPair = (props) => {
   const onChange = (e) => {
     if (props.onChange) {
-      props.onChange(props.label, e.target.value);
+      props.onChange(props.id, e.target.value);
     }
   };
   return (

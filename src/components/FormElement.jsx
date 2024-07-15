@@ -2,33 +2,34 @@ import Button from "./Button";
 import InputPair from "./InputPair";
 import SelectPair from "./SelectPair";
 import { useState, useOutletContext } from "react";
+import { actionTypes } from "../store/useReduser";
+import { useNavigate } from "react-router-dom";
 
 const FormElement = (props) => {
   const [employeeObject, setEmployeeObject] = useState({
-    employee_name: "",
+    name: "",
     department: "",
-    joining_date: "",
+    joinDate: "",
     role: "",
     status: "",
     experience: "",
     address: "",
-    employee_Id: props.employee_Id,
+    id: props.employee_Id,
   });
-  console.log(employeeObject);
+  const navigate = useNavigate();
   const onChangeEmployee = (fieldName, fieldValue) => {
     setEmployeeObject((prev) => ({
       ...prev,
       [fieldName]: fieldValue,
     }));
-
-    console.log(employeeObject);
   };
+
   const fields = [
     {
       key: 1,
       label: "Employee Name",
       type: "text",
-      id: "employee_name",
+      id: "name",
     },
     {
       key: 2,
@@ -40,7 +41,7 @@ const FormElement = (props) => {
       key: 3,
       label: "Joining Date",
       type: "date",
-      id: "joining_date",
+      id: "joinDate",
     },
     {
       key: 4,
@@ -53,14 +54,14 @@ const FormElement = (props) => {
       key: 5,
       label: "Status",
       component: "select",
-      id: "role",
+      id: "status",
       option: ["active", "inactive"],
     },
     {
       key: 6,
       label: "Experiance",
       type: "text",
-      id: "experiance",
+      id: "experience",
     },
     {
       key: 7,
@@ -73,14 +74,14 @@ const FormElement = (props) => {
       key: 8,
       label: "Employee ID",
       type: "text",
-      id: "employee_Id",
+      id: "id",
     },
   ];
   return (
     <form className="create-employee-form">
       <div className="create-employee-input">
         {fields.map((field) => {
-          if (field.id == "employee_Id" && props.operation == "create") {
+          if (field.id == "id" && props.operation == "create") {
             return;
           }
           return field.component ? (
@@ -106,7 +107,21 @@ const FormElement = (props) => {
         })}
       </div>
       <div className="create-employee-button">
-        <Button type="submit" id="create" text="Save" />
+        <Button
+          type="button"
+          id="create"
+          text="Save"
+          handleSubmit={() => {
+            props.dispatch({
+              type: actionTypes.ADD_EMPLOYEE,
+              payload: {
+                ...employeeObject,
+                id: String(props.state.employees.length + 1),
+              },
+            });
+            navigate("/employee");
+          }}
+        />
         <Button type="reset" id="cancel" text="Cancel" />
       </div>
     </form>

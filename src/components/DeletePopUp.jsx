@@ -2,7 +2,7 @@ import "./DeletePopUp.css";
 import Button from "./Button";
 import { RxCross2 } from "react-icons/rx";
 
-const DeletePopUp = ({ open, onCancel, onConfirm, employee }) => {
+const DeletePopUp = ({ open, onCancel, onConfirm }) => {
   if (!open) return null;
 
   return (
