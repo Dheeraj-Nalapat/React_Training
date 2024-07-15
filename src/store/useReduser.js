@@ -2,10 +2,17 @@ const actionTypes = {
   ADD_EMPLOYEE: "ADD_EMPLOYEE",
   DELETE_EMPLOYEE: "DELETE_EMPLOYEE",
   UPDATE_EMPLOYEE: "UPDATE_EMPLOYEE",
+  SET_FILTER: "SET_FILTER",
 };
 
 const reducer = (state, action) => {
+  let employees = [...state.employees];
   switch (action.type) {
+    case actionTypes.SET_FILTER:
+      return {
+        ...state,
+        filterBy: action.payload,
+      };
     case actionTypes.ADD_EMPLOYEE:
       console.log(action);
       return {
@@ -13,7 +20,6 @@ const reducer = (state, action) => {
         employees: [...state.employees, action.payload],
       };
     case actionTypes.DELETE_EMPLOYEE:
-      employees = [...state.employees];
       console.log(employees);
 
       return {
@@ -23,7 +29,18 @@ const reducer = (state, action) => {
         ),
       };
     case actionTypes.UPDATE_EMPLOYEE:
-      let employees = [...state.employees];
+      return {
+        ...state,
+        employees: [
+          ...employees.map((employee) => {
+            if (employee.id != action.payload.id) {
+              return employee;
+            } else {
+              return action.payload;
+            }
+          }),
+        ],
+      };
     default:
       return state;
   }

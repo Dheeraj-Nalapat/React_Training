@@ -10,33 +10,34 @@ import { useReducer } from "react";
 import { userData } from "./dummydata";
 import reducer from "./store/useReduser";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/employee",
+    element: <HomeLayout />,
+    children: [
+      {
+        index: true,
+        element: <ListEmployee />,
+      },
+      {
+        path: "create",
+        element: <CreateEmployee type="create" />,
+      },
+      {
+        path: "edit/:id",
+        element: <UpdateEmployee type="edit" />,
+      },
+      { path: "details/:id", element: <DetailsEmployee /> },
+    ],
+  },
+]);
+
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, { employees: userData });
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Login />,
-      errorElement: <NotFound />,
-    },
-    {
-      path: "/employee",
-      element: <HomeLayout />,
-      children: [
-        {
-          index: true,
-          element: <ListEmployee state={state} dispatch={dispatch} />,
-        },
-        {
-          path: "create",
-          element: (
-            <CreateEmployee type="create" state={state} dispatch={dispatch} />
-          ),
-        },
-        { path: "edit/:id", element: <UpdateEmployee type="edit" /> },
-        { path: "details/:id", element: <DetailsEmployee /> },
-      ],
-    },
-  ]);
   return (
     <div className="App">
       <RouterProvider router={router} />

@@ -3,9 +3,15 @@ import "./CreateEmployee.style.css";
 import Icon from "../assets/icon.svg";
 import Logo from "../assets/kv logo.png";
 import Navbar from "../components/Navbar";
-import { useEffect } from "react";
+import { useEffect, useReducer } from "react";
+import reducer from "../store/useReduser";
+import { userData } from "../dummydata";
 
 const HomeLayout = () => {
+  const [state, dispatch] = useReducer(reducer, {
+    employees: userData,
+    filterBy: "all",
+  });
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
@@ -19,7 +25,7 @@ const HomeLayout = () => {
     <>
       <Navbar />
       <div className="content">
-        <Outlet />
+        <Outlet context={{ state, dispatch }} />
       </div>
     </>
   );

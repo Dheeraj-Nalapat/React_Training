@@ -1,19 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import "./ListEmployee.style.css";
 import EmployeeListEntry from "../components/EmployeeListEntry";
 import { MdOutlineDelete, MdModeEditOutline } from "react-icons/md";
 import DeletePopUp from "../components/DeletePopUp";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { actionTypes } from "../store/useReduser";
 
-const ListEmployee = ({ state, dispatch }) => {
-  const [filter, setFilter] = useState("");
+const ListEmployee = () => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const handleDelete = (employee) => {
     setSelectedEmployee(employee);
     setOpenModal(true);
   };
+
+  const { state, dispatch } = useOutletContext();
+  console.log(state);
+  const onChangeFilter = (value) => {
+    console.log(value);
+    dispatch({
+      type: actionTypes.SET_FILTER,
+      payload: value,
+    });
+  };
+
   return (
     <main className="home-layout">
       <section>
@@ -26,10 +36,14 @@ const ListEmployee = ({ state, dispatch }) => {
           <div className="list-employee-operations">
             <div className="list-employee-filter">
               <p>Filter By</p>
-              <select className="status-filter">
+              <select
+                className="status-filter"
+                onChange={(e) => onChangeFilter(e.target.value)}
+              >
                 <option hidden value="status">
-                  status
+                  Status
                 </option>
+                <option value="all">All</option>
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
                 <option value="probation">Probation</option>
@@ -59,8 +73,14 @@ const ListEmployee = ({ state, dispatch }) => {
           </thead>
 
           <tbody>
-            {state.employees.map(
-              ({ name, id, joinDate, role, status, experience }) => (
+            {state.employees
+              .filter((employee) => {
+                return (
+                  state.filterBy === "all" ||
+                  employee.status.toLowerCase() === state.filterBy
+                );
+              })
+              .map(({ name, id, joinDate, role, status, experience }) => (
                 <Link to={`/employee/details/${id}`} className="table-row-link">
                   <tr key={id} className="table-row">
                     <td>{name}</td>
@@ -95,8 +115,7 @@ const ListEmployee = ({ state, dispatch }) => {
                     </td>
                   </tr>
                 </Link>
-              )
-            )}
+              ))}
           </tbody>
           {openModal && (
             <DeletePopUp

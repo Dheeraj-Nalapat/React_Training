@@ -1,7 +1,8 @@
-import { useParams } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
 import FormElement from "../components/FormElement";
 
 const UpdateEmployee = ({ type }) => {
+  const { state, dispatch } = useOutletContext();
   let { id } = useParams();
   console.log(id);
   return (
@@ -16,7 +17,12 @@ const UpdateEmployee = ({ type }) => {
         </div>
       </section>
       <section>
-        <FormElement operation={type} employee_Id={id} />
+        <FormElement
+          operation={type}
+          employee_Id={id}
+          state={state}
+          dispatch={dispatch}
+        />
       </section>
     </main>
   );

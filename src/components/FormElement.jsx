@@ -1,7 +1,7 @@
 import Button from "./Button";
 import InputPair from "./InputPair";
 import SelectPair from "./SelectPair";
-import { useState, useOutletContext } from "react";
+import { useState, useOutletContext, useEffect } from "react";
 import { actionTypes } from "../store/useReduser";
 import { useNavigate } from "react-router-dom";
 
@@ -16,6 +16,12 @@ const FormElement = (props) => {
     address: "",
     id: props.employee_Id,
   });
+  useEffect(() => {
+    setEmployeeObject(
+      props.state.employees.find((employee) => employee.id == props.employee_Id)
+    );
+    console.log(employeeObject);
+  }, [props.employee_Id]);
   const navigate = useNavigate();
   const onChangeEmployee = (fieldName, fieldValue) => {
     setEmployeeObject((prev) => ({
@@ -55,7 +61,7 @@ const FormElement = (props) => {
       label: "Status",
       component: "select",
       id: "status",
-      option: ["active", "inactive"],
+      option: ["active", "inactive", "probation"],
     },
     {
       key: 6,
@@ -112,13 +118,22 @@ const FormElement = (props) => {
           id="create"
           text="Save"
           handleSubmit={() => {
-            props.dispatch({
-              type: actionTypes.ADD_EMPLOYEE,
-              payload: {
-                ...employeeObject,
-                id: String(props.state.employees.length + 1),
-              },
-            });
+            props.dispatch(
+              props.operation == "create"
+                ? {
+                    type: actionTypes.ADD_EMPLOYEE,
+                    payload: {
+                      ...employeeObject,
+                      id: String(props.state.employees.length + 1),
+                    },
+                  }
+                : {
+                    type: actionTypes.UPDATE_EMPLOYEE,
+                    payload: {
+                      ...employeeObject,
+                    },
+                  }
+            );
             navigate("/employee");
           }}
         />

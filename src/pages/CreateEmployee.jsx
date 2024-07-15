@@ -6,7 +6,8 @@ import { useState } from "react";
 import FormElement from "../components/FormElement";
 import { useOutletContext } from "react-router-dom";
 
-const CreateEmployee = ({ type, state, dispatch }) => {
+const CreateEmployee = ({ type }) => {
+  const { state, dispatch } = useOutletContext();
   return (
     <main className="home-layout">
       <section>
