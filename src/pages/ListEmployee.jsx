@@ -1,9 +1,8 @@
 import { Link, useOutletContext } from "react-router-dom";
 import "./ListEmployee.style.css";
-import EmployeeListEntry from "../components/EmployeeListEntry";
 import { MdOutlineDelete, MdModeEditOutline } from "react-icons/md";
 import DeletePopUp from "../components/DeletePopUp";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { actionTypes } from "../store/useReduser";
 
 const ListEmployee = () => {
@@ -15,9 +14,7 @@ const ListEmployee = () => {
   };
 
   const { state, dispatch } = useOutletContext();
-  console.log(state);
   const onChangeFilter = (value) => {
-    console.log(value);
     dispatch({
       type: actionTypes.SET_FILTER,
       payload: value,

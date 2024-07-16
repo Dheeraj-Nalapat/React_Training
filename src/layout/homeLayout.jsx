@@ -1,11 +1,9 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
-import "./CreateEmployee.style.css";
-import Icon from "../assets/icon.svg";
-import Logo from "../assets/kv logo.png";
+import { Outlet, useNavigate } from "react-router-dom";
+import "../pages/CreateEmployee.style.css";
 import Navbar from "../components/Navbar";
 import { useEffect, useReducer } from "react";
 import reducer from "../store/useReduser";
-import { userData } from "../dummydata";
+import { userData } from "../data/dummydata";
 
 const HomeLayout = () => {
   const [state, dispatch] = useReducer(reducer, {

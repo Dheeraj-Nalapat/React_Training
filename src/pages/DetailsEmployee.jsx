@@ -1,8 +1,8 @@
 import { Link, useParams } from "react-router-dom";
 import { MdOutlineEdit } from "react-icons/md";
 import "./DetailsEmployee.css";
-import { userData } from "../dummydata";
-import { labelMap } from "./labelmap";
+import { userData } from "../data/dummydata";
+import { labelMap } from "../data/labelmap";
 
 const DetailsEmployee = () => {
   let { id } = useParams();

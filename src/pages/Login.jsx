@@ -4,12 +4,10 @@ import "./Login.style.css";
 import KvLogo from "../assets/kv logo.png";
 import Logo from "../assets/kv-login.jpeg";
 import Button from "../components/Button";
-import Count from "../components/Count";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
-
   const handleSubmit = (e) => {
     if (loginCredential.username && loginCredential.password) {
       localStorage.setItem("token", "true");
@@ -94,7 +92,6 @@ const Login = () => {
               type="submit"
               handleSubmit={handleSubmit}
             />
-            {/* <Count color="blue" /> */}
           </form>
         </div>
       </main>

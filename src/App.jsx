@@ -1,14 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
-import HomeLayout from "./pages/homeLayout";
+import HomeLayout from "./layout/homeLayout";
 import CreateEmployee from "./pages/CreateEmployee";
 import ListEmployee from "./pages/ListEmployee";
 import UpdateEmployee from "./pages/UpdateEmployee";
 import DetailsEmployee from "./pages/DetailsEmployee";
-import { useReducer } from "react";
-import { userData } from "./dummydata";
-import reducer from "./store/useReduser";
 
 const router = createBrowserRouter([
   {

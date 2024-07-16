@@ -1,7 +1,7 @@
 import Button from "./Button";
 import InputPair from "./InputPair";
 import SelectPair from "./SelectPair";
-import { useState, useOutletContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { actionTypes } from "../store/useReduser";
 import { useNavigate } from "react-router-dom";
 
@@ -17,10 +17,13 @@ const FormElement = (props) => {
     id: props.employee_Id,
   });
   useEffect(() => {
-    setEmployeeObject(
-      props.state.employees.find((employee) => employee.id == props.employee_Id)
-    );
-    console.log(employeeObject);
+    if (props.employee_Id) {
+      setEmployeeObject(
+        props.state.employees.find(
+          (employee) => employee.id == props.employee_Id
+        )
+      );
+    }
   }, [props.employee_Id]);
   const navigate = useNavigate();
   const onChangeEmployee = (fieldName, fieldValue) => {

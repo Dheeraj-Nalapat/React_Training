@@ -1,8 +1,4 @@
 import "./CreateEmployee.style.css";
-import InputPair from "../components/InputPair";
-import SelectPair from "../components/SelectPair";
-import Button from "../components/Button";
-import { useState } from "react";
 import FormElement from "../components/FormElement";
 import { useOutletContext } from "react-router-dom";
 
