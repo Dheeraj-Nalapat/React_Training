@@ -4,6 +4,8 @@ import { MdOutlineDelete, MdModeEditOutline } from "react-icons/md";
 import DeletePopUp from "../components/DeletePopUp";
 import { useState } from "react";
 import { actionTypes } from "../store/useReduser";
+import { useDispatch, useSelector } from "react-redux";
+import { changeFilter, deleteEmployee } from "../store/employeeReducer";
 
 const ListEmployee = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -13,12 +15,13 @@ const ListEmployee = () => {
     setOpenModal(true);
   };
 
-  const { state, dispatch } = useOutletContext();
+  const employees = useSelector((state) => state.employee.employees);
+  const filterBy = useSelector((state) => state.employee.filterBy);
+
+  const dispatch = useDispatch();
   const onChangeFilter = (value) => {
-    dispatch({
-      type: actionTypes.SET_FILTER,
-      payload: value,
-    });
+    console.log(value);
+    dispatch(changeFilter(value));
   };
 
   return (
@@ -70,11 +73,11 @@ const ListEmployee = () => {
           </thead>
 
           <tbody>
-            {state.employees
+            {employees
               .filter((employee) => {
                 return (
-                  state.filterBy === "all" ||
-                  employee.status.toLowerCase() === state.filterBy
+                  filterBy === "all" ||
+                  employee.status.toLowerCase() === filterBy
                 );
               })
               .map(({ name, id, joinDate, role, status, experience }) => (
@@ -119,10 +122,7 @@ const ListEmployee = () => {
               open={openModal}
               onCancel={() => setOpenModal(false)}
               onConfirm={() => {
-                dispatch({
-                  type: actionTypes.DELETE_EMPLOYEE,
-                  payload: selectedEmployee.id,
-                });
+                dispatch(deleteEmployee(selectedEmployee.id));
                 setSelectedEmployee(null);
                 return setOpenModal(false);
               }}

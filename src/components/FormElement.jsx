@@ -4,8 +4,13 @@ import SelectPair from "./SelectPair";
 import { useState, useEffect } from "react";
 import { actionTypes } from "../store/useReduser";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addEmployee, editEmployee } from "../store/employeeReducer";
 
 const FormElement = (props) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const employees = useSelector((state) => state.employee.employees);
   const [employeeObject, setEmployeeObject] = useState({
     name: "",
     department: "",
@@ -17,15 +22,12 @@ const FormElement = (props) => {
     id: props.employee_Id,
   });
   useEffect(() => {
-    if (props.employee_Id) {
+    if (props.employee_Id && employees.length > 0) {
       setEmployeeObject(
-        props.state.employees.find(
-          (employee) => employee.id == props.employee_Id
-        )
+        employees.find((employee) => employee.id == props.employee_Id)
       );
     }
   }, [props.employee_Id]);
-  const navigate = useNavigate();
   const onChangeEmployee = (fieldName, fieldValue) => {
     setEmployeeObject((prev) => ({
       ...prev,
@@ -121,21 +123,15 @@ const FormElement = (props) => {
           id="create"
           text="Save"
           handleSubmit={() => {
-            props.dispatch(
+            dispatch(
               props.operation == "create"
-                ? {
-                    type: actionTypes.ADD_EMPLOYEE,
-                    payload: {
-                      ...employeeObject,
-                      id: String(props.state.employees.length + 1),
-                    },
-                  }
-                : {
-                    type: actionTypes.UPDATE_EMPLOYEE,
-                    payload: {
-                      ...employeeObject,
-                    },
-                  }
+                ? addEmployee({
+                    ...employeeObject,
+                    id: String(props.state.employees.length + 1),
+                  })
+                : editEmployee({
+                    ...employeeObject,
+                  })
             );
             navigate("/employee");
           }}

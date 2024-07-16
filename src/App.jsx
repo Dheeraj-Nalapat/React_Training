@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Provider } from "react-redux";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import HomeLayout from "./layout/homeLayout";
@@ -6,6 +7,7 @@ import CreateEmployee from "./pages/CreateEmployee";
 import ListEmployee from "./pages/ListEmployee";
 import UpdateEmployee from "./pages/UpdateEmployee";
 import DetailsEmployee from "./pages/DetailsEmployee";
+import store from "./store/store";
 
 const router = createBrowserRouter([
   {
@@ -36,9 +38,11 @@ const router = createBrowserRouter([
 
 const App = () => {
   return (
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <RouterProvider router={router} />
+      </div>
+    </Provider>
   );
 };
 

@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 const SelectPair = (props) => {
   const onChange = (e) => {
     if (props.onChange) {

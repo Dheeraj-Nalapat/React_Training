@@ -16,7 +16,7 @@ const Navbar = () => {
     },
     {
       label: "Logout",
-      link: "/employee",
+      link: "/",
       icon: Icon,
     },
   ];
