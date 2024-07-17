@@ -2,20 +2,10 @@ import Button from "./Button";
 import InputPair from "./InputPair";
 import SelectPair from "./SelectPair";
 import { useState, useEffect } from "react";
-import { actionTypes } from "../store/useReduser";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { addEmployee, editEmployee } from "../store/employeeReducer";
-import {
-  useAddEmployeeMutation,
-  useGetEmployeeDetailsQuery,
-  useUpdateEmployeeMutation,
-} from "../pages/employee/employeesApi";
+import { useGetEmployeeDetailsQuery } from "../pages/employee/employeesApi";
 import {
   mapRoleBackendToFrontend,
-  mapRoleFrontendToBackend,
   mapStatusBackendToFrontend,
-  mapStatusFrontendToBackend,
 } from "../utils/textFormating";
 
 const FormElement = (props) => {

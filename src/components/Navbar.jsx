@@ -1,8 +1,11 @@
 import Logo from "../assets/kv logo.png";
 import Icon from "../assets/icon.svg";
 import NavbarAnchor from "./NavbarAnchor";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const role = useSelector((state) => state.employee.role);
+  console.log(role);
   let anchors = [
     {
       label: "Employee List",
@@ -12,6 +15,11 @@ const Navbar = () => {
     {
       label: "Create Employee",
       link: "/employee/create",
+      icon: Icon,
+    },
+    {
+      label: "Department",
+      link: "/employee/department",
       icon: Icon,
     },
     {
@@ -26,6 +34,9 @@ const Navbar = () => {
         <img src={Logo} alt="KeyValue Logo" />
       </div>
       {anchors.map((anchor) => {
+        if (anchor.label === "Department" && role != "CEO") {
+          return;
+        }
         return (
           <NavbarAnchor
             key={anchor.label}

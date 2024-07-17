@@ -1,12 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const employeeBaseApi = createApi({
-  reducerPath: "employeeApi",
+export const projectBaseApi = createApi({
+  reducerPath: "BaseApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000",
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
-      console.log(token);
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
@@ -17,8 +16,8 @@ export const employeeBaseApi = createApi({
   endpoints: () => ({}),
 });
 
-const apiWithTag = employeeBaseApi.enhanceEndpoints({
-  addTagTypes: ["EMPLOYEE_LIST"],
+const apiWithTag = projectBaseApi.enhanceEndpoints({
+  addTagTypes: ["EMPLOYEE_LIST", "DEPARTMENT_LIST"],
 });
 
 export default apiWithTag;

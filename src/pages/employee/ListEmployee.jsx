@@ -1,11 +1,10 @@
-import { Link, useOutletContext } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./ListEmployee.style.css";
 import { MdOutlineDelete, MdModeEditOutline } from "react-icons/md";
 import DeletePopUp from "../../components/DeletePopUp";
 import { useEffect, useState } from "react";
-import { actionTypes } from "../../store/useReduser";
 import { useDispatch, useSelector } from "react-redux";
-import { changeFilter, deleteEmployee } from "../../store/employeeReducer";
+import { changeFilter } from "../../store/employeeReducer";
 import {
   useDeleteEmployeeMutation,
   useGetEmployeeListQuery,
@@ -29,7 +28,7 @@ const ListEmployee = () => {
   const { data = [], isSuccess } = useGetEmployeeListQuery();
   useEffect(() => {
     if (isSuccess) {
-      const employeedata = data.map((employee) => ({
+      const employeeData = data.map((employee) => ({
         ...employee,
         role: mapRoleBackendToFrontend(employee.role),
         status: mapStatusBackendToFrontend(employee.status),
@@ -37,8 +36,8 @@ const ListEmployee = () => {
         experience: experienceToYears(employee.experience),
       }));
 
-      setList(employeedata);
-      console.log(employeedata);
+      setList(employeeData);
+      console.log(employeeData);
     }
   }, [data]);
 

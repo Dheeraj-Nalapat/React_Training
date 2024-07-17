@@ -1,4 +1,4 @@
-import apiWithTag from "../../api/employeeBase";
+import apiWithTag from "../../api/projectBase";
 
 export const employeeApi = apiWithTag.injectEndpoints({
   endpoints: (builder) => ({
@@ -22,6 +22,7 @@ export const employeeApi = apiWithTag.injectEndpoints({
         method: "PUT",
         body: patch,
       }),
+      invalidatesTags: ["EMPLOYEE_LIST"],
     }),
     deleteEmployee: builder.mutation({
       query: ({ id }) => ({

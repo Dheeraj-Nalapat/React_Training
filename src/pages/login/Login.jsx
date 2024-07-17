@@ -6,6 +6,9 @@ import Logo from "../../assets/kv-login.jpeg";
 import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "./api";
+import { setRole } from "../../store/employeeReducer";
+import { useDispatch } from "react-redux";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -53,6 +56,7 @@ const Login = () => {
     if (isSuccess && data.data.token != "") {
       console.log("here");
       localStorage.setItem("token", data.data.token);
+      onSetRole(data.data.token);
       navigate("/employee");
     }
   }, [isSuccess, data]);
@@ -62,6 +66,12 @@ const Login = () => {
       usernameRef.current.focus();
     }, 1500);
   }, []);
+
+  const dispatch = useDispatch();
+  const onSetRole = (token) => {
+    const decoded = jwtDecode(token);
+    dispatch(setRole(decoded.role));
+  };
 
   return (
     <Fragment>

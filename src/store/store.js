@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import employeeReducer from "./employeeReducer";
-import apiWithTag from "../api/employeeBase";
+import apiWithTag from "../api/projectBase";
 
 const store = configureStore({
   reducer: {

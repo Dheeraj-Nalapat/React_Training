@@ -8,6 +8,7 @@ import ListEmployee from "./pages/employee/ListEmployee";
 import UpdateEmployee from "./pages/employee/UpdateEmployee";
 import DetailsEmployee from "./pages/employee/DetailsEmployee";
 import store from "./store/store";
+import DepartmentList from "./pages/department/departmentList";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
         element: <UpdateEmployee type="edit" />,
       },
       { path: "details/:id", element: <DetailsEmployee /> },
+      {
+        path: "department",
+        element: <DepartmentList />,
+      },
     ],
   },
 ]);
