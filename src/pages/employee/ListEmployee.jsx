@@ -154,7 +154,7 @@ const ListEmployee = () => {
               open={openModal}
               onCancel={() => setOpenModal(false)}
               onConfirm={() => {
-                deleteEmployee(Number(selectedEmployee.id));
+                deleteEmployee({ id: selectedEmployee.id });
                 setSelectedEmployee(null);
                 return setOpenModal(false);
               }}

@@ -14,18 +14,23 @@ import {
 
 const DetailsEmployee = () => {
   let { id } = useParams();
-  const { data = {} } = useGetEmployeeDetailsQuery(id);
-  console.log(data);
-  const employeeDetails = {
-    ...data,
-    role: mapRoleBackendToFrontend(data.role),
-    joinDate: createdDateToJoinDate(data),
-    department: data?.department?.name,
-    address: data?.address?.line1,
-    pincode: data?.address?.pincode,
-    status: mapStatusBackendToFrontend(data.status),
-    experience: experienceToYears(data.experience),
-  };
+  console.log(id);
+  const { data = {}, isSuccess } = useGetEmployeeDetailsQuery(id);
+  const [employeeDetails, setEmployeeDetails] = useState({});
+  useEffect(() => {
+    if (isSuccess) {
+      setEmployeeDetails({
+        ...data,
+        role: mapRoleBackendToFrontend(data?.role),
+        joinDate: createdDateToJoinDate(data),
+        department: data?.department?.name,
+        address: data?.address?.line1,
+        pincode: data?.address?.pincode,
+        status: mapStatusBackendToFrontend(data?.status),
+        experience: experienceToYears(data?.experience),
+      });
+    }
+  }, [isSuccess, data]);
 
   return (
     <main className="home-layout">
@@ -56,7 +61,7 @@ const DetailsEmployee = () => {
           {Object.keys(labelMap).map((key, index) => {
             const value =
               key === "status"
-                ? `${employeeDetails[key].toLowerCase()} status-pill`
+                ? `${employeeDetails[key]?.toLowerCase()} status-pill`
                 : "data-value";
             const lastindex = Object.keys(labelMap).length;
             let dataPairClass =

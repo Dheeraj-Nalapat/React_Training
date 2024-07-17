@@ -19,8 +19,6 @@ import {
 } from "../utils/textFormating";
 
 const FormElement = (props) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [employeeObject, setEmployeeObject] = useState({
     name: "",
     department: "",
@@ -31,17 +29,15 @@ const FormElement = (props) => {
     address: "",
     id: props.employee_Id,
   });
-  // useEffect(() => {
-  //   if (props.employee_Id && employees.length > 0) {
-  //     setEmployeeObject(
-  //       employees.find((employee) => employee.id == props.employee_Id)
-  //     );
-  //   }
-  // }, [props.employee_Id]);
-  const { data = {}, isError } = useGetEmployeeDetailsQuery(props.employee_Id);
+
+  const {
+    data = {},
+    isSuccess,
+    isError,
+  } = useGetEmployeeDetailsQuery(props.employee_Id);
   useEffect(() => {
     console.log(data);
-    if (data) {
+    if (isSuccess) {
       setEmployeeObject({
         ...data,
         name: data.name,
@@ -55,7 +51,7 @@ const FormElement = (props) => {
       });
     }
     console.log(employeeObject);
-  }, [props.employee_Id]);
+  }, [props.employee_Id, data, isSuccess]);
   const onChangeEmployee = (fieldName, fieldValue) => {
     setEmployeeObject((prev) => ({
       ...prev,

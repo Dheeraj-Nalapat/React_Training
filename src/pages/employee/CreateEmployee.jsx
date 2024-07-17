@@ -45,12 +45,7 @@ const CreateEmployee = ({ type }) => {
         </div>
       </section>
       <section>
-        <FormElement
-          operation={type}
-          state={state}
-          dispatch={dispatch}
-          mutationTrigger={onCreateEmployee}
-        />
+        <FormElement operation={type} mutationTrigger={onCreateEmployee} />
       </section>
     </main>
   );
