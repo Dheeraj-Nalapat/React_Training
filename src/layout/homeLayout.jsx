@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import "../pages/CreateEmployee.style.css";
+import "../pages/employee/CreateEmployee.style.css";
 import Navbar from "../components/Navbar";
 import { useEffect, useReducer } from "react";
 import reducer from "../store/useReduser";
@@ -14,7 +14,7 @@ const HomeLayout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token || token != "true") {
+    if (!token) {
       navigate("/");
     }
   }, [token, navigate]);

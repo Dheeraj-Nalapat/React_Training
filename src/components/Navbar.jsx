@@ -28,6 +28,7 @@ const Navbar = () => {
       {anchors.map((anchor) => {
         return (
           <NavbarAnchor
+            key={anchor.label}
             label={anchor.label}
             icon={anchor.icon}
             link={anchor.link}

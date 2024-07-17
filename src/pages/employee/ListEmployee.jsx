@@ -1,11 +1,21 @@
 import { Link, useOutletContext } from "react-router-dom";
 import "./ListEmployee.style.css";
 import { MdOutlineDelete, MdModeEditOutline } from "react-icons/md";
-import DeletePopUp from "../components/DeletePopUp";
-import { useState } from "react";
-import { actionTypes } from "../store/useReduser";
+import DeletePopUp from "../../components/DeletePopUp";
+import { useEffect, useState } from "react";
+import { actionTypes } from "../../store/useReduser";
 import { useDispatch, useSelector } from "react-redux";
-import { changeFilter, deleteEmployee } from "../store/employeeReducer";
+import { changeFilter, deleteEmployee } from "../../store/employeeReducer";
+import {
+  useDeleteEmployeeMutation,
+  useGetEmployeeListQuery,
+} from "./employeesApi";
+import {
+  experienceToYears,
+  mapRoleBackendToFrontend,
+} from "../../utils/textFormating";
+import { mapStatusBackendToFrontend } from "../../utils/textFormating";
+import { createdDateToJoinDate } from "../../utils/textFormating";
 
 const ListEmployee = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -15,7 +25,25 @@ const ListEmployee = () => {
     setOpenModal(true);
   };
 
-  const employees = useSelector((state) => state.employee.employees);
+  const [list, setList] = useState([]);
+  const { data = [], isSuccess } = useGetEmployeeListQuery();
+  useEffect(() => {
+    if (isSuccess) {
+      const employeedata = data.map((employee) => ({
+        ...employee,
+        role: mapRoleBackendToFrontend(employee.role),
+        status: mapStatusBackendToFrontend(employee.status),
+        joinDate: createdDateToJoinDate(employee),
+        experience: experienceToYears(employee.experience),
+      }));
+
+      setList(employeedata);
+      console.log(employeedata);
+    }
+  }, [data]);
+
+  const [deleteEmployee] = useDeleteEmployeeMutation();
+
   const filterBy = useSelector((state) => state.employee.filterBy);
 
   const dispatch = useDispatch();
@@ -73,7 +101,7 @@ const ListEmployee = () => {
           </thead>
 
           <tbody>
-            {employees
+            {list
               .filter((employee) => {
                 return (
                   filterBy === "all" ||
@@ -81,8 +109,12 @@ const ListEmployee = () => {
                 );
               })
               .map(({ name, id, joinDate, role, status, experience }) => (
-                <Link to={`/employee/details/${id}`} className="table-row-link">
-                  <tr key={id} className="table-row">
+                <Link
+                  to={`/employee/details/${id}`}
+                  className="table-row-link"
+                  key={id}
+                >
+                  <tr className="table-row">
                     <td>{name}</td>
                     <td>{id}</td>
                     <td>{joinDate}</td>
@@ -122,7 +154,7 @@ const ListEmployee = () => {
               open={openModal}
               onCancel={() => setOpenModal(false)}
               onConfirm={() => {
-                dispatch(deleteEmployee(selectedEmployee.id));
+                deleteEmployee(Number(selectedEmployee.id));
                 setSelectedEmployee(null);
                 return setOpenModal(false);
               }}

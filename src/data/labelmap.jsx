@@ -1,10 +1,12 @@
 export const labelMap = {
   name: "Employee Name",
   id: "Employee ID",
-  joinDate: "Joining Date",
+  email: "Email",
   role: "Role",
   status: "Status",
   experience: "Experience",
-  address: "Address",
   department: "Department",
+  joinDate: "Joining Date",
+  address: "Address",
+  pincode: "Pincode",
 };

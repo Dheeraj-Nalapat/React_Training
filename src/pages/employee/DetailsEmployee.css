@@ -36,7 +36,7 @@
 
 .employee-details-tab {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   margin-left: 20px;
   background-color: #ffffff;
   border-radius: 10px;

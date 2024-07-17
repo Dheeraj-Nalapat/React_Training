@@ -16,7 +16,7 @@ const InputPair = (props) => {
         placeholder={props.label}
         onChange={onChange}
         value={props.value}
-        disabled={props.id == "employee_Id"}
+        disabled={props.id == "id"}
       />
       <br />
     </div>

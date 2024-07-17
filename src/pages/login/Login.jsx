@@ -1,22 +1,14 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import TextField from "../components/TextField";
+import TextField from "../../components/TextField";
 import "./Login.style.css";
-import KvLogo from "../assets/kv logo.png";
-import Logo from "../assets/kv-login.jpeg";
-import Button from "../components/Button";
+import KvLogo from "../../assets/kv logo.png";
+import Logo from "../../assets/kv-login.jpeg";
+import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "./api";
 
 const Login = () => {
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
-    if (loginCredential.username && loginCredential.password) {
-      localStorage.setItem("token", "true");
-    } else {
-      localStorage.setItem("token", "false");
-    }
-    console.log(e);
-    navigate("/employee");
-  };
 
   const [loginCredential, setLoginCredential] = useState({
     username: "",
@@ -28,7 +20,7 @@ const Login = () => {
   const [color, setColor] = useState("");
 
   const onUserNameChange = (text) => {
-    if (text.length > 10) {
+    if (text.length > 100) {
       setColor("red");
       setError("value has more than 10 charachters");
     } else {
@@ -47,6 +39,23 @@ const Login = () => {
       password: text,
     }));
   };
+
+  const [login, { isSuccess, data }] = useLoginMutation();
+  const onLogin = async (e) => {
+    e.preventDefault();
+    login({
+      email: loginCredential.username,
+      password: loginCredential.password,
+    });
+  };
+
+  useEffect(() => {
+    if (isSuccess && data.data.token != "") {
+      console.log("here");
+      localStorage.setItem("token", data.data.token);
+      navigate("/employee");
+    }
+  }, [isSuccess, data]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -90,7 +99,7 @@ const Login = () => {
               className="login-layout-button"
               text="Log in"
               type="submit"
-              handleSubmit={handleSubmit}
+              handleSubmit={onLogin}
             />
           </form>
         </div>

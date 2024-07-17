@@ -6,11 +6,21 @@ import { actionTypes } from "../store/useReduser";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addEmployee, editEmployee } from "../store/employeeReducer";
+import {
+  useAddEmployeeMutation,
+  useGetEmployeeDetailsQuery,
+  useUpdateEmployeeMutation,
+} from "../pages/employee/employeesApi";
+import {
+  mapRoleBackendToFrontend,
+  mapRoleFrontendToBackend,
+  mapStatusBackendToFrontend,
+  mapStatusFrontendToBackend,
+} from "../utils/textFormating";
 
 const FormElement = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const employees = useSelector((state) => state.employee.employees);
   const [employeeObject, setEmployeeObject] = useState({
     name: "",
     department: "",
@@ -21,12 +31,30 @@ const FormElement = (props) => {
     address: "",
     id: props.employee_Id,
   });
+  // useEffect(() => {
+  //   if (props.employee_Id && employees.length > 0) {
+  //     setEmployeeObject(
+  //       employees.find((employee) => employee.id == props.employee_Id)
+  //     );
+  //   }
+  // }, [props.employee_Id]);
+  const { data = {}, isError } = useGetEmployeeDetailsQuery(props.employee_Id);
   useEffect(() => {
-    if (props.employee_Id && employees.length > 0) {
-      setEmployeeObject(
-        employees.find((employee) => employee.id == props.employee_Id)
-      );
+    console.log(data);
+    if (data) {
+      setEmployeeObject({
+        ...data,
+        name: data.name,
+        email: data.email,
+        role: mapRoleBackendToFrontend(data.role),
+        status: mapStatusBackendToFrontend(data.status),
+        experience: Number(data.experience),
+        line1: data?.address?.line1,
+        pincode: data?.address?.pincode,
+        department: data?.department?.name,
+      });
     }
+    console.log(employeeObject);
   }, [props.employee_Id]);
   const onChangeEmployee = (fieldName, fieldValue) => {
     setEmployeeObject((prev) => ({
@@ -38,61 +66,89 @@ const FormElement = (props) => {
   const fields = [
     {
       key: 1,
+      label: "Employee ID",
+      type: "text",
+      id: "id",
+    },
+    {
+      key: 2,
       label: "Employee Name",
       type: "text",
       id: "name",
     },
     {
-      key: 2,
+      key: 3,
+      label: "Email",
+      type: "text",
+      id: "email",
+    },
+    {
+      key: 4,
+      label: "Password",
+      type: "text",
+      id: "password",
+    },
+    {
+      key: 5,
       label: "Department",
       type: "text",
       id: "department",
     },
     {
-      key: 3,
-      label: "Joining Date",
-      type: "date",
-      id: "joinDate",
-    },
-    {
-      key: 4,
+      key: 6,
       label: "Role",
       component: "select",
       id: "role",
-      option: ["Developer", "Devops", "Tester"],
+      option: [
+        "Developer",
+        "Tester",
+        "Ui",
+        "Ux",
+        "HR",
+        "CEO",
+        "Sales Manager",
+        "Accountant",
+        "Customer Support",
+        "IT Manager",
+        "Researcher",
+        "Legal Advisor",
+        "Project Manager",
+      ],
     },
     {
-      key: 5,
+      key: 7,
       label: "Status",
       component: "select",
       id: "status",
       option: ["active", "inactive", "probation"],
     },
     {
-      key: 6,
+      key: 8,
       label: "Experiance",
-      type: "text",
+      type: "number",
       id: "experience",
     },
     {
-      key: 7,
+      key: 9,
       label: "Address",
       type: "text",
-      id: "address",
+      id: "line1",
     },
-
     {
-      key: 8,
-      label: "Employee ID",
+      key: 10,
+      label: "Pincode",
       type: "text",
-      id: "id",
+      id: "pincode",
     },
   ];
   return (
     <form className="create-employee-form">
       <div className="create-employee-input">
         {fields.map((field) => {
-          if (field.id == "id" && props.operation == "create") {
+          if (
+            (field.id == "id" && props.operation == "create") ||
+            (field.id == "password" && props.operation != "create")
+          ) {
             return;
           }
           return field.component ? (
@@ -123,17 +179,9 @@ const FormElement = (props) => {
           id="create"
           text="Save"
           handleSubmit={() => {
-            dispatch(
-              props.operation == "create"
-                ? addEmployee({
-                    ...employeeObject,
-                    id: String(props.state.employees.length + 1),
-                  })
-                : editEmployee({
-                    ...employeeObject,
-                  })
-            );
-            navigate("/employee");
+            props.mutationTrigger({
+              ...employeeObject,
+            });
           }}
         />
         <Button type="reset" id="cancel" text="Cancel" />
